@@ -3,19 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Egill Bjarni Gíslason</title>
-  <meta name="description" content="Personal site of Egill Bjarni Gíslason.">
-
-  <!-- Open Graph / link preview tags -->
-  <meta property="og:title" content="Egill Bjarni Gíslason">
-  <meta property="og:description" content="Personal site of Egill Bjarni Gíslason.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ebg.is/">
-  <meta property="og:image" content="https://ebg.is/assets/ebg_logo_transparent.png">
+  <title>Project — Egill Bjarni Gíslason</title>
 
   <link rel="icon" href="assets/ebg_logo_transparent.png" type="image/png">
 
-  <!-- Header/nav font: Golos Text. Body font: Plus Jakarta Sans (closest free match to Lineto Circular, used on olafureliasson.net). -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
@@ -23,14 +14,6 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <!-- Splash: shown for ~2s on every load of this page, then fades to reveal the header + sidebar layout below. -->
-  <div id="splash" class="splash">
-    <picture>
-      <source srcset="assets/ebg_logo_transparent.webp" type="image/webp">
-      <img src="assets/ebg_logo_transparent.png" alt="ebg logo" class="splash-logo">
-    </picture>
-  </div>
 
   <header class="site-header">
     <div class="header-left">
@@ -62,26 +45,14 @@
     </aside>
 
     <main class="content">
-      <div id="project-list" class="project-list">
-        <!-- populated by js/project-list.js from js/projects-data.js -->
+      <div id="project-detail">
+        <!-- populated by js/project-detail.js -->
       </div>
-
-      <img src="assets/fjall_pixl.png" alt="" class="content-corner-image">
     </main>
   </div>
 
   <script src="js/projects-data.js"></script>
-  <script src="js/project-list.js"></script>
-  <script>
-    // Hide the splash 2 seconds after the page has finished loading.
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        var splash = document.getElementById('splash');
-        splash.classList.add('splash-hidden');
-        splash.setAttribute('aria-hidden', 'true');
-      }, 800);
-    });
-  </script>
+  <script src="js/project-detail.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,410 @@
+/* ---------------------------------------------------
+   ebg.is — minimal base styles
+
+   Header/nav font: Golos Text
+   Body font:       Plus Jakarta Sans
+                     (closest free match to Lineto Circular,
+                     the font used on olafureliasson.net)
+--------------------------------------------------- */
+
+:root {
+  --font-header: "Golos Text", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --color-bg: #fafafa;
+  --color-text: #1a1a1a;
+  --color-muted: #6b6b6b;
+  --color-border: #e5e5e5;
+
+  --header-height: 72px;
+  --sidebar-width: 22%;
+  --gutter: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------- splash (index.html only) ---------- */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.splash-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-logo {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+
+/* ---------- header ---------- */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  font-family: var(--font-header);
+  background-color: var(--color-bg);
+  z-index: 20;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  height: 28px;
+  width: auto;
+}
+
+.header-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.header-center {
+  flex: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.lang-switch {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lang-switch:hover,
+.lang-switch:focus-visible {
+  text-decoration: underline;
+}
+
+/* ---------- layout (sits below the fixed header) ---------- */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  padding-top: var(--header-height);
+}
+
+/* ---------- sidebar ---------- */
+
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 32px var(--gutter);
+  font-family: var(--font-header);
+
+  /* Stay in place while the content column scrolls. */
+  position: sticky;
+  top: var(--header-height);
+  align-self: flex-start;
+  max-height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  z-index: 15;
+  background-color: var(--color-bg);
+}
+
+.sidebar-logo {
+  width: 85%;
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 0px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  margin: 15px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.sidebar-nav a {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  text-align: right;
+}
+
+.sidebar-nav a.active {
+  font-weight: 600;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a:focus-visible {
+  text-decoration: underline;
+}
+
+/* ---------- content ---------- */
+
+.content {
+  flex: 1;
+  /* top | right | bottom | left — extra top space before the first project row,
+     and extra left space to separate the content from the sidebar. */
+  padding: 80px var(--gutter) 32px calc(var(--gutter) + 32px);
+  position: relative;
+}
+
+.content p {
+  max-width: 640px;
+  color: var(--color-text);
+}
+
+.content-corner-image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80%;
+  height: auto;
+}
+
+/* ---------- project list (index.html) ---------- */
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 92%;
+  margin-left: auto;
+}
+
+.project-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 0 40px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-item:first-child {
+  padding-top: 0;
+}
+
+.project-item-text {
+  width: 35%;
+  flex-shrink: 0;
+}
+
+/* Reflected variant — image on the left, text on the right. Alternated onto
+   every other row by js/project-list.js. Text and image keep the exact same
+   sizing rules as the regular rows (just mirrored via row-reverse), so the
+   image renders at the same size in both variants. */
+.project-item--reversed {
+  flex-direction: row-reverse;
+  /* The image only grows up to its max-width, so without this the leftover
+     space collects on the left (row-reverse's "end"), leaving a gap before
+     the image instead of it sitting flush left. */
+  justify-content: flex-end;
+}
+
+.project-item--reversed .project-date {
+  text-align: left;
+}
+
+.project-item-media {
+  flex: 1;
+  min-width: 0;
+  max-width: 380px;
+}
+
+.project-item-media img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- project title/date/subtitle — shared between the list and the detail page ---------- */
+
+.project-date {
+  font-family: var(--font-header);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+  text-align: right;
+  margin: 0 0 12px;
+}
+
+.project-title {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(1rem, 0.85rem + 0.8vw, 1.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.project-subtitle {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin: 0 0 12px;
+  max-width: 300px;
+}
+
+.project-arrow {
+  display: inline-block;
+  font-size: 1.1rem;
+  transition: transform 0.15s ease;
+}
+
+.project-item:hover .project-arrow,
+.project-item:focus-visible .project-arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- project detail page (project.html) ---------- */
+
+.project-title-detail {
+  font-size: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+}
+
+.project-subtitle-detail {
+  max-width: 640px;
+}
+
+.project-detail-image {
+  width: 100%;
+  height: auto;
+  margin-top: 240px;
+}
+
+/* ---------- small screens: sidebar becomes a top bar under the header ---------- */
+
+@media (max-width: 700px) {
+  body {
+    font-size: 16px;
+  }
+
+  :root {
+    --header-height: 60px;
+  }
+
+  .header-name {
+    font-size: 0.85rem;
+  }
+
+  .header-logo {
+    height: 22px;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+    max-height: none;
+  }
+
+  .sidebar-logo {
+    width: 36px;
+    margin-bottom: 0;
+  }
+
+  .sidebar-nav ul {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .content {
+    padding: 32px var(--gutter);
+  }
+
+  .content-corner-image {
+    width: 50%;
+    max-width: 220px;
+  }
+
+  .splash-logo {
+    max-width: 200px;
+  }
+
+  .project-list {
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .project-item,
+  .project-item--reversed {
+    flex-direction: column;
+    padding: 16px 0 32px;
+  }
+
+  .project-date {
+    text-align: left;
+  }
+
+  .project-item-text {
+    width: 100%;
+    text-align: left;
+  }
+
+  .project-subtitle,
+  .project-subtitle-detail {
+    max-width: none;
+  }
+}
